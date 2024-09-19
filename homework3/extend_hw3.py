@@ -1,6 +1,7 @@
 import random
 import argparse
 import math
+import statistics
 from ezr import the, DATA, csv, stats
 from time import time
 
@@ -9,123 +10,118 @@ HW 3 Testing an Research Hypothesis
 
 Sanjit Verma (skverma), Arul Sharma (asharm52), Sarvesh Soma (ssomasu)
 
-Usage: 
+single file use from ezr directory: python3.13 -B homework3/extend_hw3.py -t data/optimize/{folder name}/{file}
     
 """
 
-scoring_policies = [
-    ('exploit', lambda B, R: B - R),
-    ('explore', lambda B, R: (math.exp(B) + math.exp(R)) / (1e-30 + abs(math.exp(B) - math.exp(R))))
-]
-
 def parse_arguments():
-    """
-    this methoid will parse command-line arguments
-    """
-    parser = argparse.ArgumentParser(description="Experiments on Low and High Dimensional Datasets")
-    parser.add_argument('-t', '--train', required=True, help="Path to the dataset (CSV)")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-t', '--train', required=True, help="path to datga")
     return parser.parse_args()
 
-
-def is_low_dimension(dataset, threshold=6):
-    """
-    determines if the dataset is low-dimensional
-    """
-    return len(dataset.cols.x) < threshold
-
-
-def load_dataset(dataset_path):
-    """
-    loads the dataset from the CSV 
-    """
+def load_dataset(file_path):
     try:
-        dataset = DATA().adds(csv(dataset_path))
-        return dataset
+        return DATA().adds(csv(file_path))
     except Exception as e:
-        raise
+        raise RuntimeError(f"failed to load data: {file_path}: {e}")
 
+def run_smart(dataset, scoringP, repeats=20):
+    somes = []
+    for what, how in scoringP:
+        for N in [20, 30, 40, 50]:
+            start = time()
+            result = []
+            runs = 0
 
-def dumb_method(num_rows, dataset):
-    """
-    Select num rows randomly and sorts by Chebyshev distance
-    """
-    sampled_rows = random.choices(dataset.rows, k=num_rows)
-    sorted_rows = sorted(sampled_rows, key=dataset.chebyshev)
+            for _ in range(repeats):
+                original_rows = dataset.rows[:]
 
-    # Test: Top item should have min Chebyshev distance
-    assert abs(dataset.chebyshev(sorted_rows[0]) - min(dataset.chebyshev(row) for row in sampled_rows)) < 1e-6
-    return sorted_rows
+                tmp = dataset.shuffle().activeLearning(score=how)
 
+                # TEST: Does d.shuffle() really jiggle the order of the data?
+                shuffled_rows = dataset.rows[:]
+                is_shuffled = original_rows != shuffled_rows
+                assert is_shuffled, "Shuffle did not change the order of the data."
 
-def smart_method(num_rows, dataset, score_func):
-    """
-    use active learning to select num row based on the score function.
-    """
-    selected_rows = dataset.shuffle().activeLearning(score=score_func)
+                # TEST: Are the results of smart method the right length (i.e., N)?
+                tmp = tmp[:N]
 
-    if len(selected_rows) > num_rows:
-        selected_rows = selected_rows[:num_rows] 
-    if len(selected_rows) < num_rows:
-        selected_rows += random.choices(dataset.rows, k=num_rows - len(selected_rows))
+                runs += len(tmp)
+                result.append(dataset.chebyshev(tmp[0]))
 
-    # Test: Ensure correct number of rows selected
-    assert len(selected_rows) == num_rows, "Active learning selection returned incorrect number of rows"
-    return selected_rows[:num_rows]
+            elapsedt = (time() - start) / repeats
+            tag = f"smart,{N}"
+            print(f"{tag} : {elapsedt:.2f} secs")
+            somes.append(stats.SOME(result, tag))
 
+            # TEST: Does you code really run some experimental treatment 20 times for statistical validity?
+            assert len(result) == repeats, f"Expected {repeats} results for smart, got {len(result)}."
 
-def run_trials(method, num_rows, dataset, trials=20, score_func=None):
-    """
-    Runs trials for  the dumb or smart method
-    """
-    results = []
-    for _ in range(trials):
-        if method == 'dumb':
-            selected = dumb_method(num_rows, dataset)
-        elif method == 'smart':
-            selected = smart_method(num_rows, dataset, score_func)
-        results.append(dataset.chebyshev(selected[0]))
+    return somes
 
-    # Test: Ensure number of trials
-    assert len(results) == trials, f"{method.capitalize()} method did not run {trials} trials."
-    return results
+def run_dumb(dataset, repeats=20):
+    somes = []
+    for N in [20, 30, 40, 50]:
+        start = time()
+        result = []
+        runs = 0
 
+        for _ in range(repeats):
+            tmp = random.choices(dataset.rows, k=N)
 
-def execute_experiment(dataset, dimension_label):
-    """
-    Runs experiment for different N values using both methods
-    """
-    results = []
-    trials = 20
-    N_values = [20, 30, 40, 50]
+            # TEST: Are dumb lists the right length (i.e., N)?
+            assert len(tmp) == N, f"Dumb method not the expected rows."
 
-    for N in N_values:
+            tmp_sorted = sorted(tmp, key=lambda row: dataset.chebyshev(row))
 
-        # dumb
-        dumb_chebyshev = run_trials('dumb', N, dataset, trials)
-        results.append(stats.SOME(dumb_chebyshev, f"{dimension_label}_dumb,{N}"))
+            # TEST: Does chebyshevs().rows[0] return the top item in that sort?
+            assert tmp_sorted[0] == sorted(tmp, key=lambda row: dataset.chebyshev(row))[0], \
+                "Chebyshev sorting failed."
 
-        # smart
-        for policy_name, score_func in scoring_policies:
-            smart_chebyshev = run_trials('smart', N, dataset, trials, score_func=score_func)
-            results.append(stats.SOME(smart_chebyshev, f"{dimension_label}_smart_{policy_name},{N}"))
+            runs += len(tmp_sorted)
+            result.append(dataset.chebyshev(tmp_sorted[0]))
 
-    # Test: Ensure shuffle changes order
-    original_order = dataset.rows[:]
-    dataset.shuffle()
-    assert original_order != dataset.rows, "Shuffle did not change the order of the dataset"
+        elapsedt = (time() - start) / repeats
+        tag = f"dumb,{N}"
+        print(f"{tag} : {elapsedt:.2f} secs")
+        somes.append(stats.SOME(result, tag))
 
-    stats.report(results, 0.01)
+        # TEST: Does you code really run some experimental treatment 20 times for statistical validity?
+        assert len(result) == repeats, f"Expected {repeats} results for dumb, got {len(result)}."
 
+    return somes
+
+def run_experiment(dataset):
+    b4 = [dataset.chebyshev(row) for row in dataset.rows]
+
+    asIs = statistics.median(b4) if b4 else 0
+    div = statistics.stdev(b4) if len(b4) > 1 else 0
+    print(f"asIs\t: {asIs:.3f}")
+    print(f"div\t: {div:.3f}")
+    print(f"rows\t: {len(dataset.rows)}")
+    print(f"xcols\t: {len(dataset.cols.x)}")
+    print(f"ycols\t: {len(dataset.cols.y)}\n")
+
+    if len(dataset.cols.x) < 6:  
+        print("low_dimension")
+    else:
+        print("high_dimension")
+        
+    somes = [stats.SOME(b4, f"asIs,{len(dataset.rows)}")]
+
+    scoringP = [
+        ('smart', lambda B, R: B - R),
+        ('smart', lambda B, R: (math.exp(B) + math.exp(R)) / (1e-30 + abs(math.exp(B) - math.exp(R))))
+    ]
+
+    somes += run_smart(dataset, scoringP)
+    somes += run_dumb(dataset)
+    stats.report(somes, 0.01)
 
 def main():
     args = parse_arguments()
-
-    # load data
     dataset = load_dataset(args.train)
-
-    # check dim of data
-    dimension_label = "low_dimension" if is_low_dimension(dataset) else "high_dimension"
-    execute_experiment(dataset, dimension_label)
+    run_experiment(dataset)
 
 if __name__ == "__main__":
     main()
