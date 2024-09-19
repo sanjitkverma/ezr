@@ -5,14 +5,14 @@ xcols	: 4
 ycols	: 3
 
 low_dimension
-smart,20 : 0.02 secs
-smart,30 : 0.02 secs
+smart,20 : 0.03 secs
+smart,30 : 0.03 secs
 smart,40 : 0.02 secs
-smart,50 : 0.03 secs
+smart,50 : 0.02 secs
 smart,20 : 0.02 secs
 smart,30 : 0.03 secs
 smart,40 : 0.02 secs
-smart,50 : 0.03 secs
+smart,50 : 0.02 secs
 dumb,20 : 0.00 secs
 dumb,30 : 0.00 secs
 dumb,40 : 0.00 secs

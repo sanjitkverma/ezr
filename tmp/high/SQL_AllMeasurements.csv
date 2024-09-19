@@ -6,13 +6,13 @@ ycols	: 1
 
 high_dimension
 smart,20 : 0.08 secs
+smart,30 : 0.09 secs
+smart,40 : 0.08 secs
+smart,50 : 0.08 secs
+smart,20 : 0.08 secs
 smart,30 : 0.08 secs
 smart,40 : 0.08 secs
 smart,50 : 0.08 secs
-smart,20 : 0.09 secs
-smart,30 : 0.08 secs
-smart,40 : 0.08 secs
-smart,50 : 0.09 secs
 dumb,20 : 0.00 secs
 dumb,30 : 0.00 secs
 dumb,40 : 0.00 secs

@@ -14,19 +14,17 @@ for dir in "config" "hpo" "misc" "process"; do
     for file in "$DATA_DIR/$dir"/*; do
         
         if [[ "$file" != *.csv ]]; then
-            echo "Skipping non-CSV file: $file"
             continue
         fi
         
         echo "Processing $file"
-
         output=$(python3.13 "$SCRIPT_PATH" -t "$file")
 
         if echo "$output" | grep -q "low_dimension"; then
-            echo "File $file is low dim. Moving to $LOW_DIR"
+            echo "File $file is low dim"
             cp "$file" "$LOW_DIR"
         else
-            echo "File $file is high dim. Moving to $HIGH_DIR"
+            echo "File $file is high dim"
             cp "$file" "$HIGH_DIR"
         fi
     done
