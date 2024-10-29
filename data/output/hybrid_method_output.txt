@@ -1,0 +1,32 @@
+Non-numeric columns: []
+Target column: Latency-
+Initial labeled indices: [ 658 1226  156  949 1084  506  122  243  458  426  593  866  234 1034
+   41  475  462  284  921  993 1251  767  417  980  333 1237  784  579
+ 1337 1248  674 1037  325  175 1332 1168   35  599  450  543  106  717
+  872  493  482  734  947 1265  330  115]
+Validation set size: 259
+Initial Model R2: 0.98, MSE: 37602.54
+
+--- Active Learning Iteration 1 ---
+Current R2: 0.98, Previous R2: 0.98
+Top 10 most uncertain samples: [1, 1078, 36, 862, 970, 0, 1008, 91, 109, 73]
+Selected 6 diverse samples from clusters.
+Prioritized 6 samples based on error reduction.
+Selected top 5 samples for labeling.
+Selected indices for labeling: [np.int64(1078), np.int64(862), np.int64(1), np.int64(1008), np.int64(36)]
+Total labeled samples: 55
+Iteration 1 Model R2: 0.98, MSE: 36610.33
+Desired performance threshold of 90.0% R2 reached. Stopping active learning.
+#
+ 0,                        R2,  0.98,  0.00, *                   |                   ,  0.98,  0.98,  0.98,  0.98,  0.98
+#
+ 1,                       MSE, 36610.33,  0.00,                     |                  *, 36610.33, 36610.33, 36610.33, 36610.33, 36610.33
+
+Total Labels Selected: 5
+
+All Selected Samples:
+[10.0, 6.0, 17.0, 23075.0, 158.68]
+[8.0, 6.0, 17.0, 22887.0, 172.74]
+[1.0, 1.0, 2.0, 10818.0, 316.58]
+[10.0, 3.0, 1.0, 10182.0, 325.3]
+[1.0, 3.0, 1.0, 7905.6, 416.37]
