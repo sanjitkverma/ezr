@@ -1,58 +1,92 @@
 Non-numeric columns: []
-Target column: Latency-
-Initial labeled indices: [ 28 824  47 737 863]
-Validation set size: 268
-Initial Model R2: -0.08, MSE: 2575512.36
+Target column: B-
+Initial labeled indices: [140 114  23  54  49  64  53 105 122  32 170  82  26 148  57 126 197 145
+ 104 193 141  58 196 178 180  30  93  31 142 103 144 129 168 195  46  33
+  11 161  72  16  55  28 189 133 106   9 138  59 132 198]
+Validation set size: 31
+Initial Model R2: 0.84, MSE: 0.80
 
 --- Active Learning Iteration 1 ---
-Current R2: -0.08, Previous R2: -0.08
-Top 10 most uncertain samples: [1, 1078, 36, 862, 970, 0, 1008, 91, 109, 73]
-Selected 6 diverse samples from clusters.
-Prioritized 6 samples based on error reduction.
+Current R2: 0.84, Previous R2: 0.84
+Top 10 most uncertain samples: [159, 186, 166, 158, 205, 187, 179, 165, 173, 172]
+Selected 5 diverse samples from clusters.
+Prioritized 5 samples based on error reduction.
 Selected top 5 samples for labeling.
-Selected indices for labeling: [np.int64(1078), np.int64(862), np.int64(1), np.int64(1008), np.int64(36)]
-Total labeled samples: 10
-Iteration 1 Model R2: -0.04, MSE: 2477681.09
-Performance improved by 0.04. Resetting patience.
+Selected indices for labeling: [np.int64(205), np.int64(186), np.int64(158), np.int64(159), np.int64(166)]
+Total labeled samples: 55
+Iteration 1 Model R2: 0.88, MSE: 0.64
+Performance improved by 0.03. Resetting patience.
 
 --- Active Learning Iteration 2 ---
-Current R2: -0.04, Previous R2: -0.04
+Current R2: 0.88, Previous R2: 0.88
 Adaptive number of samples for this iteration: 4
-Top 10 most uncertain samples: [970, 0, 91, 109, 73, 216, 18, 162, 541, 1042]
+Top 10 most uncertain samples: [187, 179, 165, 173, 172, 155, 201, 190, 183, 176]
 Selected 6 diverse samples from clusters.
 Prioritized 6 samples based on error reduction.
 Selected top 4 samples for labeling.
-Selected indices for labeling: [np.int64(91), np.int64(109), np.int64(970), np.int64(1042)]
-Total labeled samples: 14
-Iteration 2 Model R2: -0.04, MSE: 2478338.90
+Selected indices for labeling: [np.int64(155), np.int64(201), np.int64(187), np.int64(173)]
+Total labeled samples: 59
+Iteration 2 Model R2: 0.88, MSE: 0.61
 No significant improvement. Count: 1/2
 
 --- Active Learning Iteration 3 ---
-Current R2: -0.04, Previous R2: -0.04
+Current R2: 0.88, Previous R2: 0.88
 Adaptive number of samples for this iteration: 4
-Top 10 most uncertain samples: [0, 73, 216, 18, 162, 541, 144, 1153, 2, 1080]
+Top 10 most uncertain samples: [179, 165, 172, 190, 183, 176, 204, 203, 192, 146]
 Selected 6 diverse samples from clusters.
 Prioritized 6 samples based on error reduction.
 Selected top 4 samples for labeling.
-Selected indices for labeling: [np.int64(18), np.int64(162), np.int64(73), np.int64(541)]
-Total labeled samples: 18
-Iteration 3 Model R2: -0.03, MSE: 2465478.16
+Selected indices for labeling: [np.int64(183), np.int64(190), np.int64(179), np.int64(165)]
+Total labeled samples: 63
+Iteration 3 Model R2: 0.89, MSE: 0.55
+Performance improved by 0.02. Resetting patience.
+
+--- Active Learning Iteration 4 ---
+Current R2: 0.89, Previous R2: 0.89
+Adaptive number of samples for this iteration: 4
+Top 10 most uncertain samples: [172, 176, 204, 203, 192, 146, 162, 169, 147, 153]
+Selected 5 diverse samples from clusters.
+Prioritized 5 samples based on error reduction.
+Selected top 4 samples for labeling.
+Selected indices for labeling: [np.int64(176), np.int64(204), np.int64(192), np.int64(146)]
+Total labeled samples: 67
+Iteration 4 Model R2: 0.88, MSE: 0.62
+No significant improvement. Count: 1/2
+
+--- Active Learning Iteration 5 ---
+Current R2: 0.88, Previous R2: 0.88
+Adaptive number of samples for this iteration: 4
+Top 10 most uncertain samples: [172, 203, 162, 169, 147, 153, 157, 14, 154, 135]
+Selected 6 diverse samples from clusters.
+Prioritized 6 samples based on error reduction.
+Selected top 4 samples for labeling.
+Selected indices for labeling: [np.int64(162), np.int64(203), np.int64(147), np.int64(157)]
+Total labeled samples: 71
+Iteration 5 Model R2: 0.90, MSE: 0.51
 No significant improvement. Count: 2/2
 No significant improvement over several iterations. Stopping active learning.
 
-Total Labels Selected: 13
+Total Labels Selected: 21
 
 All Selected Samples:
-[10.0, 6.0, 17.0, 23075.0, 158.68]
-[8.0, 6.0, 17.0, 22887.0, 172.74]
-[1.0, 1.0, 2.0, 10818.0, 316.58]
-[10.0, 3.0, 1.0, 10182.0, 325.3]
-[1.0, 3.0, 1.0, 7905.6, 416.37]
-[1.0, 6.0, 2.0, 11370.0, 282.9]
-[2.0, 1.0, 2.0, 11726.0, 287.88]
-[9.0, 6.0, 17.0, 22799.0, 156.83]
-[10.0, 4.0, 17.0, 21975.0, 148.88]
-[1.0, 2.0, 1.0, 8587.7, 377.76]
-[2.0, 4.0, 1.0, 8602.2, 397.62]
-[1.0, 5.0, 2.0, 11395.0, 285.58]
-[6.0, 1.0, 2.0, 11633.0, 273.81]
+[8.0, 4.0, 5.0, 15.16030477, 7.802506965]
+[4.0, 32.0, 5.0, 13.76103174, 11.00016159]
+[0.0, 32.0, 5.0, 11.19721669, 7.586631221]
+[0.0, 64.0, 5.0, 11.35810171, 8.757891433]
+[1.0, 64.0, 5.0, 11.25325658, 9.618118628]
+[0.0, 4.0, 5.0, 9.019590728, 4.849816643]
+[7.0, 4.0, 5.0, 14.31995431, 7.603452483]
+[4.0, 64.0, 5.0, 13.66733334, 12.29857337]
+[2.0, 64.0, 5.0, 11.99823782, 10.37986031]
+[4.0, 4.0, 5.0, 11.41837972, 8.441542305]
+[5.0, 4.0, 5.0, 12.37150441, 8.565523889]
+[3.0, 32.0, 5.0, 12.84588203, 10.53302527]
+[1.0, 32.0, 5.0, 11.03960452, 8.783424695]
+[3.0, 4.0, 5.0, 10.53138146, 7.654109752]
+[8.0, 2.0, 5.0, 14.21720042, 7.276899329]
+[5.0, 16.0, 5.0, 13.82545572, 10.22386568]
+[8.0, 22.0, 3.0, 16.13979114, 11.91089241]
+[1.0, 4.0, 5.0, 9.038918989, 5.849099186]
+[8.0, 1.0, 5.0, 13.30976054, 7.537930924]
+[8.0, 22.0, 4.0, 16.08841559, 11.88129476]
+[0.0, 16.0, 5.0, 10.39231742, 6.757812147]

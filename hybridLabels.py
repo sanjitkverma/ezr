@@ -260,12 +260,12 @@ def adaptive_sample_selection(current_r2, previous_r2, base_samples=5, max_sampl
 
 def active_learning_loop_with_model(train_file, 
                                     performance_threshold=0.90, 
-                                    max_iterations=20,  # Increased to allow more iterations if needed
+                                    max_iterations=20,  
                                     num_samples_per_iteration=5, 
                                     n_clusters=3, 
                                     samples_per_cluster=2,
-                                    improvement_threshold=0.01,  # Minimum required improvement
-                                    patience=2  # Number of iterations to wait for improvement
+                                    improvement_threshold=0.01, 
+                                    patience=2 
                                    ):
     """
     Active learning loop that iteratively selects samples for labeling.
@@ -298,7 +298,7 @@ def active_learning_loop_with_model(train_file,
     # Initialize labeled and unlabeled sets
     labeled_indices = set()
     all_indices = set(df.index)
-    initial_labels = 5  # Start with 5 labeled samples
+    initial_labels = 50  # Start with 5 labeled samples
     initial_labeled = np.random.choice(list(all_indices), size=initial_labels, replace=False)
     labeled_indices.update(initial_labeled)
     print(f"Initial labeled indices: {initial_labeled}")
@@ -405,11 +405,11 @@ if __name__ == "__main__":
     
     performance_threshold = 0.90
     max_iterations = 20 
-    num_samples_per_iteration = 5  # Initial number of samples
+    num_samples_per_iteration = 5 
     n_clusters = 3
     samples_per_cluster = 2
     improvement_threshold = 0.01  # Minimum required improvement in R2
-    patience = 2  # Number of iterations to wait for improvement
+    patience = 2 
     
     # Run active learning loop with model integration
     all_selected_samples = active_learning_loop_with_model(

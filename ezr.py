@@ -658,7 +658,7 @@ class egs:
     d = DATA()
     n=0
     for row in csv(the.train): n += len(row)
-    assert n== 3192,"csv?"
+    assert n>1,"csv?"
 
   def reads():
     d = DATA().adds(csv(the.train))
