@@ -260,11 +260,11 @@ def adaptive_sample_selection(current_r2, previous_r2, base_samples=5, max_sampl
     return adjusted_num_samples
 
 def active_learning_loop_with_model(train_file, 
-                                    performance_threshold=0.95, 
+                                    performance_threshold=0.85, 
                                     max_iterations=20,  
-                                    num_samples_per_iteration=25, 
+                                    num_samples_per_iteration=20, 
                                     n_clusters=3, 
-                                    samples_per_cluster=4,
+                                    samples_per_cluster=5,
                                     improvement_threshold=0.01, 
                                     patience=3 
                                    ):
@@ -299,7 +299,7 @@ def active_learning_loop_with_model(train_file,
     # Initialize labeled and unlabeled sets
     labeled_indices = set()
     all_indices = set(df.index)
-    initial_labels = 50  # Start with 5 labeled samples
+    initial_labels = 25  # Start with 5 labeled samples
     initial_labeled = np.random.choice(list(all_indices), size=initial_labels, replace=False)
     labeled_indices.update(initial_labeled)
     print(f"Initial labeled indices: {initial_labeled}")

@@ -1,32 +1,46 @@
 Non-numeric columns: []
-Target column: Latency-
-Initial labeled indices: [ 658 1226  156  949 1084  506  122  243  458  426  593  866  234 1034
-   41  475  462  284  921  993 1251  767  417  980  333 1237  784  579
- 1337 1248  674 1037  325  175 1332 1168   35  599  450  543  106  717
-  872  493  482  734  947 1265  330  115]
-Validation set size: 259
-Initial Model R2: 0.98, MSE: 37602.54
+Target column: B-
+Initial labeled indices: [ 58  30  10 192  74  66 165 124 182  34 121  67  50 109  45 102 132 198
+  14 201 144  53  84  62  57]
+Validation set size: 36
+Initial Model R2: 0.85, MSE: 0.72
 
 --- Active Learning Iteration 1 ---
-Current R2: 0.98, Previous R2: 0.98
-Top 10 most uncertain samples: [1, 1078, 36, 862, 970, 0, 1008, 91, 109, 73]
+Current R2: 0.85, Previous R2: 0.85
+Top 10 most uncertain samples: [159, 193, 186, 166, 158, 205, 187, 179, 173, 180]
+Selected 5 diverse samples from clusters.
+Prioritized 5 samples based on error reduction.
+Selected top 5 samples for labeling.
+Selected indices for labeling: [np.int64(205), np.int64(159), np.int64(193), np.int64(186), np.int64(158)]
+Total labeled samples: 30
+Iteration 1 Model R2: 0.88, MSE: 0.58
+
+--- Active Learning Iteration 2 ---
+Current R2: 0.88, Previous R2: 0.88
+Adaptive number of samples for this iteration: 4
+Top 10 most uncertain samples: [166, 187, 179, 173, 180, 148, 172, 155, 196, 190]
 Selected 6 diverse samples from clusters.
 Prioritized 6 samples based on error reduction.
-Selected top 5 samples for labeling.
-Selected indices for labeling: [np.int64(1078), np.int64(862), np.int64(1), np.int64(1008), np.int64(36)]
-Total labeled samples: 55
-Iteration 1 Model R2: 0.98, MSE: 36610.33
+Selected top 4 samples for labeling.
+Selected indices for labeling: [np.int64(155), np.int64(196), np.int64(166), np.int64(187)]
+Total labeled samples: 34
+Iteration 2 Model R2: 0.91, MSE: 0.42
+The improvement in R² is statistically significant.
 Desired performance threshold of 90.0% R2 reached. Stopping active learning.
 #
- 0,                        R2,  0.98,  0.00, *                   |                   ,  0.98,  0.98,  0.98,  0.98,  0.98
+ 0,                       MSE,  0.58,  0.16,             *       |                   ,  0.42,  0.42,  0.58,  0.58,  0.58
 #
- 1,                       MSE, 36610.33,  0.00,                     |                  *, 36610.33, 36610.33, 36610.33, 36610.33, 36610.33
+ 1,                        R2,  0.91,  0.03,                     |                  *,  0.88,  0.88,  0.91,  0.91,  0.91
 
-Total Labels Selected: 5
+Total Labels Selected: 9
 
 All Selected Samples:
-[10.0, 6.0, 17.0, 23075.0, 158.68]
-[8.0, 6.0, 17.0, 22887.0, 172.74]
-[1.0, 1.0, 2.0, 10818.0, 316.58]
-[10.0, 3.0, 1.0, 10182.0, 325.3]
-[1.0, 3.0, 1.0, 7905.6, 416.37]
+[8.0, 4.0, 5.0, 15.16030477, 7.802506965]
+[0.0, 64.0, 5.0, 11.35810171, 8.757891433]
+[5.0, 64.0, 5.0, 14.74546425, 12.64761208]
+[4.0, 32.0, 5.0, 13.76103174, 11.00016159]
+[0.0, 32.0, 5.0, 11.19721669, 7.586631221]
+[0.0, 4.0, 5.0, 9.019590728, 4.849816643]
+[6.0, 4.0, 5.0, 13.26737193, 8.566591824]
+[1.0, 64.0, 5.0, 11.25325658, 9.618118628]
+[4.0, 64.0, 5.0, 13.66733334, 12.29857337]
